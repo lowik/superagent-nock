@@ -1,8 +1,8 @@
 # superagent-nock
-Very simple mock of superagent http requests for testing purpose (from Node.js or the browser)
-Inspired by superagent-mocker, superagent-mock and nock
+Very simple mock of superagent http requests for testing purpose (from Node.js or the browser).
+Inspired by superagent-mocker, superagent-mock and nock.
 
-Used for testing React components with Redux and Observable
+Used for testing React components with Redux and Observable.
 
 # Usage
 
@@ -19,16 +19,16 @@ Define the base url
 ```js
 nock('http://localhost')
 ```
-Mock the url
+The url to mock
 ```js
 nock.get('/events/10')
 ```
-Define result
+The result to return
 ```js
 nock.reply(httpStatus, responseBody)
 ```
 
-Then, when you do GET request on the url, the callback return the specified response
+Then, when you do a get request on the url, the callback return the specified result
 ```js
 nock('http://localhost')
    .get('/events/10')
