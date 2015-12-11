@@ -11,6 +11,7 @@
     "lint": "eslint src"
   },
   "src": "src",
+	"main": "./src/index.js",
 	"keywords": [
     "superagent",
     "mock",
