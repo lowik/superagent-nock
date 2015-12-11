@@ -1,8 +1,8 @@
 {
   "name": "superagent-nock",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "Mock superagent http requests",
-	"repository": {
+  "repository": {
     "type": "git",
     "url": "git@github.com:lowik/superagent-nock.git"
   },
@@ -11,14 +11,14 @@
     "lint": "eslint src"
   },
   "src": "src",
-	"main": "./src/index.js",
-	"keywords": [
+  "main": "./src/index.js",
+  "keywords": [
     "superagent",
     "mock",
     "nock"
   ],
   "devDependencies": {
-		"eslint": "1.6.0",
-		"eslint-config-evenium": "0.0.16"
+    "eslint": "1.6.0",
+    "eslint-config-evenium": "0.0.16"
   }
 }
