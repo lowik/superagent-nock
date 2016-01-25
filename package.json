@@ -7,17 +7,18 @@
     "url": "git@github.com:lowik/superagent-nock.git"
   },
   "scripts": {
-    "build": "node ./bin/build.js",
+    "compile": "rimraf lib && babel src --out-dir lib --presets \"es2015\"",
     "lint": "eslint src"
   },
-  "src": "src",
-  "main": "./src/index.js",
+  "main": "./lib/index.js",
   "keywords": [
     "superagent",
     "mock",
     "nock"
   ],
   "devDependencies": {
+    "babel-core": "6.4.5",
+    "babel-preset-es2015": "6.3.13",
     "eslint": "1.6.0",
     "eslint-config-evenium": "0.0.16"
   }
