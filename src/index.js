@@ -95,6 +95,7 @@ export default function(superagent) {
 				};
 			} else {
 				res = {
+                    status: reply.status,
 					body: reply.result
 				};
 			}
