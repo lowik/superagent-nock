@@ -73,7 +73,6 @@ export default function(superagent) {
 
   // don't patch if superagent was patched already
   if (superagent._patchedBySuperagentMocker) {
-    mock.clear() // sheldon: added reset here
     return init;
 
   }
