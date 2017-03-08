@@ -1,6 +1,6 @@
 {
   "name": "superagent-nock",
-  "version": "0.2.0",
+  "version": "0.1.0",
   "description": "Mock superagent http requests",
   "repository": {
     "type": "git",
@@ -8,7 +8,10 @@
   },
   "scripts": {
     "compile": "rimraf lib && babel src --out-dir lib --presets \"es2015\"",
-    "lint": "eslint src"
+    "lint": "eslint src",
+    "preversion": "npm run lint && npm run compile",
+    "postversion": "npm publish",
+    "postpublish": "git push origin master"
   },
   "main": "./lib/index.js",
   "keywords": [
