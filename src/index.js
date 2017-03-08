@@ -6,6 +6,10 @@ const methodsMapping = {
 	patch: 'PATCH'
 };
 
+function isFunction(obj) {
+	return !!(obj && obj.constructor && obj.call && obj.apply);
+};
+
 const mock = {};
 
 // The base url
@@ -84,8 +88,12 @@ export default function(superagent) {
 	const oldEnd = reqProto.end;
 	reqProto.end = function end(cb) { // do not use function arrow to access to this.url and this.method
 		const route = routesMap[buildRouteKey(this.method, this.url)];
-		const reply = route && route.reply;
+		let reply = route && route.reply;
 		if (reply) {
+			if (isFunction(reply.status)) {
+				reply = reply.status(this.url) || {status: 500};
+			}
+			
 			let err;
 			let res;
 			if (reply.status >= 400) {

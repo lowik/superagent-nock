@@ -27,6 +27,15 @@ The result to return
 ```js
 nock.reply(httpStatus, responseBody)
 ```
+or specify a function
+```js
+nock.reply(function() {
+   return {
+      status: 200,
+      result: responseBody
+   };
+})
+```
 
 Then, when you do a get request on the url, the callback return the specified result
 ```js
