@@ -8,7 +8,7 @@ const methodsMapping = {
 
 function isFunction(obj) {
 	return !!(obj && obj.constructor && obj.call && obj.apply);
-};
+}
 
 const mock = {};
 
@@ -93,18 +93,17 @@ export default function(superagent) {
 			if (isFunction(reply.status)) {
 				reply = reply.status(this.url) || {status: 500};
 			}
-			
+
 			let err;
-			let res;
 			if (reply.status >= 400) {
 				err = {
 					status: reply.status,
 					response: reply.result
 				};
 			}
-			
+
 			// sheldon: the correct superagent behavior is to have res even in error case
-			res = {
+			const res = {
 				status: reply.status,
 				body: reply.result
 			};
