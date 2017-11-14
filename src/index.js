@@ -94,19 +94,21 @@ export default function(superagent) {
 				reply = reply.status(this.url) || {status: 500};
 			}
 
+			// sheldon: the correct superagent behavior is to have res even in error case
+			const res = {
+				status: reply.status,
+				body: reply.result,
+				ok: true
+			};
+
 			let err;
 			if (reply.status >= 400) {
 				err = {
 					status: reply.status,
 					response: reply.result
 				};
+				res.ok=false;
 			}
-
-			// sheldon: the correct superagent behavior is to have res even in error case
-			const res = {
-				status: reply.status,
-				body: reply.result
-			};
 
 			try {
 				cb && cb(err, res);
