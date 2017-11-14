@@ -107,7 +107,7 @@ export default function(superagent) {
 					status: reply.status,
 					response: reply.result
 				};
-				res.ok=false;
+				res.ok = false;
 			}
 
 			try {
