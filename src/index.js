@@ -50,14 +50,15 @@ Object.keys(methodsMapping).forEach(method => {
 });
 
 // Reply function
-mock.reply = (status, result) => {
+mock.reply = (status, result, headers) => {
 	if (!currentRoute) {
 		throw new Error('Must call get, post, put, del or patch before reply');
 	}
 
 	currentRoute.reply = {
 		status,
-		result
+		result,
+		headers
 	};
 
 	return mock; // chaining
@@ -98,6 +99,7 @@ export default function(superagent) {
 			const res = {
 				status: reply.status,
 				body: reply.result,
+				headers: reply.headers,
 				ok: true
 			};
 
