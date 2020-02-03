@@ -8,8 +8,7 @@
   },
   "scripts": {
     "compile": "rm -rf lib && babel src -d lib",
-    "lint": "eslint src",
-    "preversion": "npm run lint && npm run compile",
+    "preversion": "npm run compile",
     "postversion": "npm publish",
     "postpublish": "git push origin master"
   },
