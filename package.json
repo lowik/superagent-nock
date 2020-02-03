@@ -1,6 +1,6 @@
 {
   "name": "superagent-nock",
-  "version": "0.4.0",
+  "version": "0.5.0",
   "description": "Mock superagent http requests",
   "repository": {
     "type": "git",
