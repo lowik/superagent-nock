@@ -25,15 +25,18 @@ nock.get('/events/10')
 ```
 The result to return
 ```js
-nock.reply(httpStatus, responseBody, responseHeaders)
+nock.reply(httpStatus, responseBody, responseHeaders, foo)
 ```
 or specify a function
 ```js
-nock.reply(function() {
+nock.reply(function(url) {
    return {
       status: 200,
       result: responseBody,
-      headers: {'access-token': 'example-JSON-Web-Token'}
+      headers: {'access-token': 'example-JSON-Web-Token'},
+      foo: {
+        something,
+      },
    };
 })
 ```
