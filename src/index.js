@@ -1,15 +1,3 @@
-const methodsMapping = {
-	get: 'GET',
-	post: 'POST',
-	put: 'PUT',
-	del: 'DELETE',
-	patch: 'PATCH'
-};
-
-function isFunction(obj) {
-	return !!(obj && obj.constructor && obj.call && obj.apply);
-}
-
 const mock = {};
 
 // The base url
@@ -21,25 +9,32 @@ let routesMap = {};
 // The current (last defined) route
 let currentRoute;
 
-function buildRoute(method, url, reply) {
-	return {
-		method,
-		url: baseUrl + url,
-		reply
-	};
-}
+const methodsMapping = {
+	get: 'GET',
+	post: 'POST',
+	put: 'PUT',
+	del: 'DELETE',
+	patch: 'PATCH',
+	head: 'HEAD',
+};
 
-function buildRouteKey(httpMethod, url) {
-	return httpMethod + ' ' + url;
-}
+const isFunction = obj => !!(obj && obj.constructor && obj.call && obj.apply);
 
-function addRoute(method, url) {
+const buildRoute = (method, url, reply) => ({
+	method,
+	url: `${baseUrl}${url}`,
+	reply,
+});
+
+const buildRouteKey = (httpMethod, url) => `${httpMethod} ${url}`;
+
+const addRoute = (method, url) => {
 	const route = buildRoute(method, url);
 	const routeKey = buildRouteKey(route.method, route.url);
 	routesMap[routeKey] = route;
 	currentRoute = route;
-	return mock; // chaining
-}
+	return mock; // for chaining
+};
 
 // TODO: mock.delay;
 
@@ -50,7 +45,7 @@ Object.keys(methodsMapping).forEach(method => {
 });
 
 // Reply function
-mock.reply = (status, result, headers) => {
+mock.reply = (status, result, headers, ...rest) => {
 	if (!currentRoute) {
 		throw new Error('Must call get, post, put, del or patch before reply');
 	}
@@ -58,7 +53,8 @@ mock.reply = (status, result, headers) => {
 	currentRoute.reply = {
 		status,
 		result,
-		headers
+		headers,
+		...rest,
 	};
 
 	return mock; // chaining
@@ -69,13 +65,12 @@ mock.clear = () => {
 	return mock; // chaining
 };
 
-function init(requestBaseUrl = '') {
+const init = (requestBaseUrl = '') => {
 	baseUrl = requestBaseUrl; // Set the baseUrl
 	return mock;
-}
+};
 
-export default function(superagent) {
-
+export default superagent => {
 	// don't patch if superagent was patched already
 	if (superagent._patchedBySuperagentMocker) {
 		// mock.clear() // sheldon: added reset here
@@ -100,14 +95,16 @@ export default function(superagent) {
 				status: reply.status,
 				body: reply.result,
 				headers: reply.headers,
-				ok: true
+				ok: true,
+				...reply,
 			};
 
 			let err;
 			if (reply.status >= 400) {
 				err = {
 					status: reply.status,
-					response: reply.result
+					response: reply.result,
+					...reply,
 				};
 				res.ok = false;
 			}
@@ -148,4 +145,4 @@ export default function(superagent) {
 	};
 
 	return init;
-}
+};
